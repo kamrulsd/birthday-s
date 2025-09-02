@@ -1,4 +1,5 @@
 "use client";
+import ClientConfetti from "./components/ClientConfetti";
 
 import { useState } from "react";
 import Confetti from "react-confetti";
@@ -20,7 +21,9 @@ export default function Page() {
 
   return (
     <div className="relative w-full h-screen bg-gradient-to-br from-pink-200 via-purple-200 to-blue-200 flex flex-col items-center justify-center text-center overflow-hidden">
-      <Confetti numberOfPieces={300} />
+      {/* <Confetti numberOfPieces={300} /> */}
+      <ClientConfetti />
+
 
       <audio autoPlay loop>
         <source src="/music/birthday.mp3" type="audio/mpeg" />
