@@ -74,7 +74,7 @@ export default function Page() {
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          🎂 Shanjida, you are the most amazing person in my life. Thank you for being you! I wish you all the happiness, love, and success today and always. ❤️ Love You
+          🎂 Shanjida, you are the most amazing person in my life. Thank you for being you! I wish you all the happiness, love, and success today and always. ❤️
         </motion.div>
       )}
 
