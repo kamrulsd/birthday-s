@@ -1,103 +1,95 @@
+"use client";
+
+import { useState } from "react";
+import Confetti from "react-confetti";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+export default function Page() {
+  const [showMessage, setShowMessage] = useState(false);
+  const [currentPhoto, setCurrentPhoto] = useState(0);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  const photos = [
+    "/photos/photo1.jpeg",
+    "/photos/photo2.jpeg",
+    "/photos/photo3.jpeg",
+  ];
+
+  const handleClick = () => setShowMessage(true);
+  const nextPhoto = () => setCurrentPhoto((prev) => (prev + 1) % photos.length);
+
+  return (
+    <div className="relative w-full h-screen bg-gradient-to-br from-pink-200 via-purple-200 to-blue-200 flex flex-col items-center justify-center text-center overflow-hidden">
+      <Confetti numberOfPieces={300} />
+
+      <audio autoPlay loop>
+        <source src="/music/birthday.mp3" type="audio/mpeg" />
+      </audio>
+
+      {[...Array(15)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-6 h-6 bg-pink-400 rounded-full"
+          animate={{ y: [0, 600, 0], x: [0, 50, -50, 0] }}
+          transition={{ repeat: Infinity, duration: 6 + i, ease: "easeInOut" }}
+        />
+      ))}
+
+      <motion.h1
+        className="text-5xl md:text-7xl font-bold mb-6 text-pink-600"
+        initial={{ y: -200, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        Happy Birthday, Shanjida! 🎉
+      </motion.h1>
+
+      <motion.div
+        className="mb-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 1 }}
+      >
+        <p className="text-lg md:text-2xl text-purple-700">
+          Today is your special day, and I hope it's filled with love and joy! 💖
+        </p>
+      </motion.div>
+
+      {!showMessage ? (
+        <motion.button
+          onClick={handleClick}
+          className="bg-pink-500 text-white px-6 py-3 rounded-full shadow-lg hover:bg-pink-600 transition"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          Click to see your surprise!
+        </motion.button>
+      ) : (
+        <motion.div
+          className="mt-6 p-6 bg-white rounded-2xl shadow-xl max-w-md text-purple-800 text-lg md:text-xl"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          🎂 Shanjida, you are the most amazing person in my life. Thank you for being you! I wish you all the happiness, love, and success today and always. ❤️ Love You
+        </motion.div>
+      )}
+
+      <div className="mt-10">
+        <motion.div
+          className="relative w-64 h-64 md:w-96 md:h-96 mx-auto rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
+          onClick={nextPhoto}
+          whileHover={{ scale: 1.05 }}
         >
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src={photos[currentPhoto]}
+            alt="Memory photo"
+            fill
+            className="object-cover"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </motion.div>
+        <p className="mt-2 text-purple-700">Click the photo to see the next memory 💌</p>
+      </div>
     </div>
   );
 }
