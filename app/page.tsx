@@ -2,7 +2,7 @@
 import ClientConfetti from "./components/ClientConfetti";
 
 import { useState } from "react";
-import Confetti from "react-confetti";
+// import Confetti from "react-confetti";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
